@@ -272,6 +272,9 @@ extern enum cpp_ttype pragma_lex (tree *, location_t *loc = NULL);
 #define C_LEX_STRING_NO_JOIN	  2 /* Do not concatenate strings
 				       nor translate them into execution
 				       character set.  */
+#define C_LEX_NUMBER_AS_STRING	  4 /* Do not classify a number, but
+				       instead return it as a raw
+				       string.  */
 
 /* This is not actually available to pragma parsers.  It's merely a
    convenient location to declare this function for c-lex, after
