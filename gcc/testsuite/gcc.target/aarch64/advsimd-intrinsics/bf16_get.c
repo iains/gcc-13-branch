@@ -9,7 +9,7 @@
 
 /*
 **test_vget_low_bf16:
-**     ret
+**	ret
 */
 bfloat16x4_t test_vget_low_bf16 (bfloat16x8_t a)
 {
@@ -18,8 +18,8 @@ bfloat16x4_t test_vget_low_bf16 (bfloat16x8_t a)
 
 /*
 **test_vget_high_bf16:
-**     dup	d0, v0.d\[1\]
-**     ret
+**	dup	d0, v0.d\[1\]
+**	ret
 */
 bfloat16x4_t test_vget_high_bf16 (bfloat16x8_t a)
 {
