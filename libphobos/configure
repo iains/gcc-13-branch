@@ -1493,7 +1493,8 @@ Optional Features:
   --enable-fast-install[=PKGS]
                           optimize for fast installation [default=yes]
   --disable-libtool-lock  avoid locking (might break parallel builds)
-  --enable-darwin-at-path install libraries with @rpath/library-name, requires
+  --enable-darwin-at-rpath
+                          install libraries with @rpath/library-name, requires
                           rpaths to be added to executables
   --enable-werror         turns on -Werror [default=no]
   --enable-version-specific-runtime-libs
@@ -11826,7 +11827,7 @@ else
   lt_dlunknown=0; lt_dlno_uscore=1; lt_dlneed_uscore=2
   lt_status=$lt_dlunknown
   cat > conftest.$ac_ext <<_LT_EOF
-#line 11829 "configure"
+#line 11830 "configure"
 #include "confdefs.h"
 
 #if HAVE_DLFCN_H
@@ -11932,7 +11933,7 @@ else
   lt_dlunknown=0; lt_dlno_uscore=1; lt_dlneed_uscore=2
   lt_status=$lt_dlunknown
   cat > conftest.$ac_ext <<_LT_EOF
-#line 11935 "configure"
+#line 11936 "configure"
 #include "confdefs.h"
 
 #if HAVE_DLFCN_H

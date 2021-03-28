@@ -1474,7 +1474,8 @@ Optional Features:
   --enable-fast-install[=PKGS]
                           optimize for fast installation [default=yes]
   --disable-libtool-lock  avoid locking (might break parallel builds)
-  --enable-darwin-at-path install libraries with @rpath/library-name, requires
+  --enable-darwin-at-rpath
+                          install libraries with @rpath/library-name, requires
                           rpaths to be added to executables
   --disable-werror        disable building with -Werror
   --enable-cet            enable Intel CET in target libraries [default=auto]
@@ -12435,7 +12436,7 @@ else
   lt_dlunknown=0; lt_dlno_uscore=1; lt_dlneed_uscore=2
   lt_status=$lt_dlunknown
   cat > conftest.$ac_ext <<_LT_EOF
-#line 12438 "configure"
+#line 12439 "configure"
 #include "confdefs.h"
 
 #if HAVE_DLFCN_H
@@ -12541,7 +12542,7 @@ else
   lt_dlunknown=0; lt_dlno_uscore=1; lt_dlneed_uscore=2
   lt_status=$lt_dlunknown
   cat > conftest.$ac_ext <<_LT_EOF
-#line 12544 "configure"
+#line 12545 "configure"
 #include "confdefs.h"
 
 #if HAVE_DLFCN_H

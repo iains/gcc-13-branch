@@ -609,8 +609,8 @@ extern GTY(()) int darwin_ms_struct;
 	   %{fgnu-tm: -lcrttms.o}}"
 
 #if DARWIN_AT_RPATH
-/* A default rpath, that picks up dependent libraries installed in the same 
-   director as one being loaded.  */
+/* A default rpath, that picks up dependent libraries installed in the same
+   directory as one being loaded.  */
 #define DARWIN_RPATH_SPEC \
   "%:version-compare(>= 10.5 mmacosx-version-min= -rpath) \
    %:version-compare(>= 10.5 mmacosx-version-min= @loader_path) \
