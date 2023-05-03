@@ -501,6 +501,11 @@ GM2_MIN_FLAGS=$(GM2_G) $(GM2_OS) \
  -Wpedantic-cast -Wpedantic-param-names -fno-exceptions \
  -ffunction-sections -fdata-sections $(GM2_CPP)
 
+# ALL_LINKERFLAGS may include -pie (when GCC is configured with
+# --enable-host-pie), so use -fPIE if needed.  (It would not be
+# a good idea to override CFLAGS.)
+GM2_PICFLAGS = $(PICFLAG)
+
 O2=-O2 -g
 SO_O2=-O2 -g -fPIC
 SO=-O0 -g -fPIC
@@ -1396,7 +1401,7 @@ m2/mc-boot-ch/$(SRC_PREFIX)%.o: m2/mc-boot-ch/$(SRC_PREFIX)%.c m2/gm2-libs/gm2-l
 
 m2/mc-boot-ch/$(SRC_PREFIX)%.o: m2/mc-boot-ch/$(SRC_PREFIX)%.cc m2/gm2-libs/gm2-libs-host.h
 	-test -d $(@D) || $(mkinstalldirs) $(@D)
-	$(CXX) $(CXXFLAGS) -DHAVE_CONFIG_H -g -c -I. -Im2/gm2-libs -I$(srcdir)/../include -I$(srcdir) $(INCLUDES) -Im2/gm2-libs $< -o $@
+	$(CXX) $(CXXFLAGS) $(GM2_PICFLAGS) -DHAVE_CONFIG_H -g -c -I. -Im2/gm2-libs -I$(srcdir)/../include -I$(srcdir) $(INCLUDES) -Im2/gm2-libs $< -o $@
 
 m2/mc-boot/main.o: $(M2LINK) $(srcdir)/m2/init/mcinit
 	-test -d $(@D)/$(DEPDIR) || $(mkinstalldirs) $(@D)/$(DEPDIR)
