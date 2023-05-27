@@ -7852,7 +7852,9 @@ aarch64_layout_arg (cumulative_args_t pcum_v, const function_arg_info &arg)
       /* C.8 if the argument has an alignment of 16 then the NGRN is
 	 rounded up to the next even number.  */
       if (nregs == 2
-	  && ncrn % 2)
+	  && ncrn % 2
+	  /* Darwin PCS deletes rule C.8.  */
+	  && !TARGET_MACHO)
 	{
 	  /* Emit a warning if the alignment changed when taking the
 	     'packed' attribute into account.  */
@@ -7869,9 +7871,7 @@ aarch64_layout_arg (cumulative_args_t pcum_v, const function_arg_info &arg)
 	     passed by reference rather than value.  */
 	  if (alignment == 16 * BITS_PER_UNIT)
 	    {
-	      if (warn_pcs_change && abi_break
-		  /* Darwin PCS deletes rule C.8.  */
-		  && !TARGET_MACHO)
+	      if (warn_pcs_change && abi_break)
 		inform (input_location, "parameter passing for argument of type "
 			"%qT changed in GCC 9.1", type);
 	      ++ncrn;
