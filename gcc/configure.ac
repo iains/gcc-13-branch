@@ -6276,6 +6276,7 @@ if test x"$ld64_flag" = x"yes"; then
   # Set defaults for possibly untestable items.
   gcc_cv_ld64_export_dynamic=0
   gcc_cv_ld64_platform_version=0
+  gcc_cv_ld64_demangle=0
 
   if test "$build" = "$host"; then
     darwin_try_test=1
@@ -6297,6 +6298,9 @@ if test x"$ld64_flag" = x"yes"; then
     AC_MSG_CHECKING(ld64 specified version)
     gcc_cv_ld64_major=`echo "$gcc_cv_ld64_version" | sed -e 's/\..*//'`
     AC_MSG_RESULT($gcc_cv_ld64_major)
+    if test "$gcc_cv_ld64_major" -ge 97; then
+      gcc_cv_ld64_demangle=1
+    fi
     if test "$gcc_cv_ld64_major" -ge 236; then
       gcc_cv_ld64_export_dynamic=1
     fi
@@ -6311,6 +6315,13 @@ if test x"$ld64_flag" = x"yes"; then
       | sed -e 's/.*ld64-//' -e 's/.*dyld-//'| awk '{print $1}'`
     fi
     AC_MSG_RESULT($gcc_cv_ld64_version)
+
+    AC_MSG_CHECKING(linker for -demangle support)
+    gcc_cv_ld64_demangle=1
+    if $gcc_cv_ld -demangle < /dev/null 2>&1 | grep 'unknown option' > /dev/null; then
+      gcc_cv_ld64_demangle=0
+    fi
+    AC_MSG_RESULT($gcc_cv_ld64_demangle)
 
     AC_MSG_CHECKING(linker for -export_dynamic support)
     gcc_cv_ld64_export_dynamic=1
@@ -6331,6 +6342,9 @@ if test x"$ld64_flag" = x"yes"; then
     AC_DEFINE_UNQUOTED(LD64_VERSION, "${gcc_cv_ld64_version}",
       [Define to ld64 version.])
   fi
+
+  AC_DEFINE_UNQUOTED(LD64_HAS_DEMANGLE, $gcc_cv_ld64_demangle,
+  [Define to 1 if ld64 supports '-demangle'.])
 
   AC_DEFINE_UNQUOTED(LD64_HAS_EXPORT_DYNAMIC, $gcc_cv_ld64_export_dynamic,
   [Define to 1 if ld64 supports '-export_dynamic'.])
