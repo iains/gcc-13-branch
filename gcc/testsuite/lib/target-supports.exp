@@ -12429,3 +12429,15 @@ proc check_effective_target_const_volatile_readonly_section { } {
     }
   return 1
 }
+
+# Return 1 if the target supports heap-trampoline, 0 otherwise.
+proc check_effective_target_heap_trampoline {} {
+    if { [istarget aarch64*-*-linux*]
+	 || [istarget i?86-*-darwin*]
+	 || [istarget x86_64-*-darwin*]
+	 || [istarget i?86-*-linux*]
+	 || [istarget x86_64-*-linux*] } {
+	return 1
+    }
+    return 0
+}
