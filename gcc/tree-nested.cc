@@ -613,7 +613,7 @@ get_trampoline_type (struct nesting_info *info)
 
   /* When trampolines are created off-stack then the only thing we need in the
      local frame is a single pointer.  */
-  if (flag_off_stack_trampolines)
+  if (flag_trampoline_impl == TRAMPOLINE_IMPL_HEAP)
     {
       trampoline_type = build_pointer_type (void_type_node);
       return trampoline_type;
@@ -2800,7 +2800,7 @@ convert_tramp_reference_op (tree *tp, int *walk_subtrees, void *data)
       /* APB: We don't need to do the adjustment calls when using off-stack
 	 trampolines, any such adjustment will be done when the off-stack
 	 trampoline is created.  */
-      if (!descr && flag_off_stack_trampolines)
+      if (!descr && flag_trampoline_impl == TRAMPOLINE_IMPL_HEAP)
 	x = gsi_gimplify_val (info, x, &wi->gsi);
       else
 	{
@@ -3527,7 +3527,7 @@ finalize_nesting_tree_1 (struct nesting_info *root)
 	  if (!field)
 	    continue;
 
-	  if (flag_off_stack_trampolines)
+	  if (flag_trampoline_impl == TRAMPOLINE_IMPL_HEAP)
 	    {
 	      /* We pass a whole bunch of arguments to the builtin function that
 		 creates the off-stack trampoline, these are
@@ -3593,9 +3593,9 @@ finalize_nesting_tree_1 (struct nesting_info *root)
   /* If we created initialization statements, insert them.  */
   if (stmt_list)
     {
-      if (flag_off_stack_trampolines)
+      if (flag_trampoline_impl == TRAMPOLINE_IMPL_HEAP)
 	{
-	  /* Handle the new, off stack trampolines.  */
+	  /* Handle off-stack trampolines.  */
 	  gbind *bind;
 	  annotate_all_with_location (stmt_list, DECL_SOURCE_LOCATION (context));
 	  annotate_all_with_location (cleanup_list, DECL_SOURCE_LOCATION (context));
@@ -3606,10 +3606,11 @@ finalize_nesting_tree_1 (struct nesting_info *root)
 
 	  if (cleanup_list != NULL)
 	    {
-	      /* We Maybe shouldn't be creating this try/finally if -fno-exceptions is
-		 in use.  If this is the case, then maybe we should, instead, be
-		 inserting the cleanup code onto every path out of this function?  Not
-		 yet figured out how we would do this.  */
+	      /* Maybe we shouldn't be creating this try/finally if
+		 -fno-exceptions is in use.  If this is the case, then maybe
+		 we should, instead, be inserting the cleanup code onto every
+		 path out of this function?  Not yet figured out how we would
+		 do this.  */
 	      gtry *t = gimple_build_try (stmt_list, cleanup_list, GIMPLE_TRY_FINALLY);
 	      gimple_seq_add_stmt (&xxx_list, t);
 	    }
