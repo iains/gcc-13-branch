@@ -313,5 +313,4 @@ along with GCC; see the file COPYING3.  If not see
    trampolines.  */
 #undef X86_CUSTOM_FUNCTION_TEST
 #define X86_CUSTOM_FUNCTION_TEST \
-  (!flag_off_stack_trampolines && !flag_trampolines) ? 1 : 0
-
+  (flag_trampolines && flag_trampoline_impl == TRAMPOLINE_IMPL_HEAP) ? 0 : 1
