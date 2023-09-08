@@ -2,6 +2,10 @@
 /* { dg-do run { target *-*-darwin* } } */
 /* { dg-options "-O0 -segaddr __TEST 0x200000 -fno-pie" { target { *-*-darwin* && { ! lp64 } } } } */
 /* { dg-options "-O0 -segaddr __TEST 0x110000000 -fno-pie" { target { *-*-darwin* && lp64 } } } */
+<<<<<<< HEAD
+=======
+/* { dg-prune-output "-no_pie is deprecated when targeting new OS versions" } */
+>>>>>>> 785f50af94f (testsuite: adjust for darwin linker warning)
 
 extern void abort ();
 
