@@ -308,7 +308,7 @@ extern GTY(()) int darwin_ms_struct;
    %:version-compare(>= 10.7 mmacosx-version-min= -no_pie) }"
 
 #define DARWIN_CC1_SPEC							\
-  "%<dynamic %<force_cpusubtype_ALL %<multiply_defined* "
+  "%<dynamic %<force_cpusubtype_ALL %<multiply_defined* %<dynamiclib"
 
 /* When we are using embedded runpaths DARWIN_AT_RPATH is set. */
 #if DARWIN_AT_RPATH
