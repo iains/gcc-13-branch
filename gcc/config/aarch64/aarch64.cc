@@ -28106,6 +28106,14 @@ aarch64_indirect_call_asm (rtx addr)
   return "";
 }
 
+#if TARGET_MACHO
+static bool
+aarch64_darwin_frame_pointer_required ()
+{
+  return !leaf_function_p ();
+}
+#endif
+
 /* Target-specific selftests.  */
 
 #if CHECKING_P
@@ -28782,6 +28790,11 @@ aarch64_libgcc_floating_mode_supported_p
 
 #undef TARGET_CONST_ANCHOR
 #define TARGET_CONST_ANCHOR 0x1000000
+
+#if TARGET_MACHO
+#undef TARGET_FRAME_POINTER_REQUIRED
+#define TARGET_FRAME_POINTER_REQUIRED aarch64_darwin_frame_pointer_required
+#endif
 
 struct gcc_target targetm = TARGET_INITIALIZER;
 
