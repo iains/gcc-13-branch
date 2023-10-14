@@ -28110,7 +28110,11 @@ aarch64_indirect_call_asm (rtx addr)
 static bool
 aarch64_darwin_frame_pointer_required ()
 {
-  return !leaf_function_p ();
+  /* NOTE: We are allowing the user to force omission of the frame
+     pointer, but that is not ABI-compliant; Note we have to cater for the
+     AArch64-specific setting of flag_omit_frame_pointer => 2 for the
+     user-specified no-omit.  */
+  return !leaf_function_p () && flag_omit_frame_pointer != 1;
 }
 #endif
 
