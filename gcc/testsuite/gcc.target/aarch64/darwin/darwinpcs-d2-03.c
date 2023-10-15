@@ -1,6 +1,6 @@
 /* { dg-do compile } */
 
-/* { dg-additional-options "-O -fno-schedule-insns -fno-schedule-insns2 " } */
+/* { dg-additional-options "-O2 -fno-schedule-insns -fno-schedule-insns2 -march=armv8-a" } */
 /* { dg-final { check-function-bodies "**" "" "" { target *-*-darwin* } } } */
 
 typedef union u { char a; short b; } U;
@@ -38,22 +38,21 @@ sf_packing (float a, float b, float c, float d,
 /* So the stores to sp+12 and 20 pack the floats onto the stack.
 **call_sf_packing:
 **	...
-**	fmov	s1, 1.0e\+0
-**	str	s1, \[sp, 48\]
-**	fmov	s2, 2.0e\+0
-**	str	s2, \[sp, 52\]
+**	mov	(x[0-9]+), 1065353216
+**	movk	\1, 0x4000, lsl 48
 **	mov	w[0-9]+, 1077936128
-**	ldr	x[0-9]+, \[sp, 48\]
-**	str	x[0-9]+, \[sp, 12\]
-**	str	w[0-9]+, \[sp, 20\]
-**	str	x[0-9]+, \[sp\]
-**	str	w[0-9]+, \[sp, 8\]
 **	fmov	s7, 7.0e\+0
 **	fmov	s6, 6.0e\+0
 **	fmov	s5, 5.0e\+0
 **	fmov	s4, 4.0e\+0
 **	fmov	s3, 3.0e\+0
+**	fmov	s2, 2.0e\+0
+**	fmov	s1, 1.0e\+0
 **	movi	v0.2s, #0
+**	str	x[0-9]+, \[sp\]
+**	str	w[0-9]+, \[sp, 8\]
+**	str	x[0-9]+, \[sp, 12\]
+**	str	w[0-9]+, \[sp, 20\]
 **	bl	_sf_packing
 **	...
 */
