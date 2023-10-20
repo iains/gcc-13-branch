@@ -6,7 +6,8 @@ int main ()
   return 0;
 }
 
-/* { dg-final { scan-assembler-times {\.arch armv8\-a} 1 } } */
+/* { dg-final { scan-assembler-times {\.arch armv8\-a\+crc} 1 { target { ! *-*-darwin* } } } } */
+/* { dg-final { scan-assembler-times {\.arch armv8\-a} 1 { target *-*-darwin* } } } */
 
  /* Check that grouping of bits that don't form a synthetic group don't turn
     on the parent. e.g. rdma turns on simd+fp, but simd+fp does not turn on
