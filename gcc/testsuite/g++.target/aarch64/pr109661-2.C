@@ -1,5 +1,5 @@
+/* { dg-skip-if "Darwin ABI is different, test separately" { *-*-darwin* } } */
 /* { dg-options "-O2 -Wpsabi" } */
-
 
 #include <stdarg.h>
 
