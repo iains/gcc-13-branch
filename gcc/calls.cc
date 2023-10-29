@@ -1488,10 +1488,12 @@ initialize_argument_information (int num_actuals ATTRIBUTE_UNUSED,
 
       unsignedp = TYPE_UNSIGNED (type);
       arg.type = type;
-      arg.mode
-	= promote_function_mode (type, TYPE_MODE (type), &unsignedp,
-				 fndecl ? TREE_TYPE (fndecl) : fntype, 0);
-
+//      arg.mode
+//	= promote_function_mode (type, TYPE_MODE (type), &unsignedp,
+//				 fndecl ? TREE_TYPE (fndecl) : fntype, 0);
+      arg.mode = promote_function_mode (args_so_far, arg,
+					fndecl ? TREE_TYPE (fndecl) : fntype,
+					&unsignedp, 0);
       args[i].unsignedp = unsignedp;
       args[i].mode = arg.mode;
 
@@ -4334,8 +4336,12 @@ emit_library_call_value_1 (int retval, rtx orgfun, rtx value,
 	  val = force_operand (XEXP (slot, 0), NULL_RTX);
 	}
 
-      arg.mode = promote_function_mode (NULL_TREE, arg.mode, &unsigned_p,
-					NULL_TREE, 0);
+//      arg.mode = promote_function_mode (NULL_TREE, arg.mode, &unsigned_p,
+//					NULL_TREE, 0);
+
+      arg.mode = promote_function_mode (args_so_far, arg, NULL_TREE,
+					&unsigned_p, 0);
+
       argvec[count].mode = arg.mode;
       argvec[count].value = convert_modes (arg.mode, GET_MODE (val), val,
 					   unsigned_p);
