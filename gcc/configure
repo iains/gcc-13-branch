@@ -26401,14 +26401,13 @@ else
 fi
 { $as_echo "$as_me:${as_lineno-$LINENO}: result: $gcc_cv_as_mmacosx_version_min" >&5
 $as_echo "$gcc_cv_as_mmacosx_version_min" >&6; }
-if test $gcc_cv_as_mmacosx_version_min = yes; then
+
+
+    if test x$gcc_cv_as_mmacosx_version_min = "xyes"; then
 
 $as_echo "#define HAVE_AS_MMACOSX_VERSION_MIN_OPTION 1" >>confdefs.h
 
-fi
-
-    if test x$gcc_cv_as_mmacosx_version_min = "xyes"; then
-       { $as_echo "$as_me:${as_lineno-$LINENO}: checking assembler for .build_version" >&5
+	{ $as_echo "$as_me:${as_lineno-$LINENO}: checking assembler for .build_version" >&5
 $as_echo_n "checking assembler for .build_version... " >&6; }
 if ${gcc_cv_as_darwin_build_version+:} false; then :
   $as_echo_n "(cached) " >&6
@@ -26433,12 +26432,13 @@ else
 fi
 { $as_echo "$as_me:${as_lineno-$LINENO}: result: $gcc_cv_as_darwin_build_version" >&5
 $as_echo "$gcc_cv_as_darwin_build_version" >&6; }
-if test $gcc_cv_as_darwin_build_version = yes; then
+
+
+      if test x$gcc_cv_as_darwin_build_version = "xyes"; then
 
 $as_echo "#define HAVE_AS_MACOS_BUILD_VERSION 1" >>confdefs.h
 
-fi
-
+      fi
     fi
     ;;
 esac
