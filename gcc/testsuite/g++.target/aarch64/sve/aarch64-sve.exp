@@ -25,6 +25,11 @@ if {![istarget aarch64*-*-*] } then {
   return
 }
 
+# SVE/2 support on Darwin is experimental, make the tests optional
+if { [istarget *-*-darwin*] && ![info exists env(DARWIN_TEST_SVE)]} then {
+  return
+}
+
 # Load support procs.
 load_lib g++-dg.exp
 
