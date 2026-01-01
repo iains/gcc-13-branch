@@ -2888,7 +2888,7 @@ if (is(T == enum))
 {
     enum A : string { one = "uno", two = "dos", three = "tres" }
     formatTest(A.three, "three");
-    formatTest(cast(A)"mill\&oacute;n", "cast(A)mill\&oacute;n");
+    formatTest(cast(A)"mill&oacute;n", "cast(A)mill&oacute;n");
 }
 @safe unittest
 {
